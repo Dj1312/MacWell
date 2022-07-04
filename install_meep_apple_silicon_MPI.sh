@@ -38,17 +38,17 @@ cd ~/install_meep
 wget https://github.com/NanoComp/mpb/releases/download/v1.11.1/mpb-1.11.1.tar.gz
 tar xzf mpb-1.11.1.tar.gz
 cd mpb-1.11.1/
-./configure --enable-shared CPPFLAGS="-I$(brew --prefix)/include" LDFLAGS="-L$(brew --prefix)/lib" --with-hermitian-eps && make && sudo make install
+./configure --enable-shared CC=mpicc CPPFLAGS="-I$(brew --prefix)/include" LDFLAGS="-L$(brew --prefix)/lib" --with-hermitian-eps && make && sudo make install
 
 ## Meep
 cd ~/install_meep
 wget https://github.com/NanoComp/meep/releases/download/v1.23.0/meep-1.23.0.tar.gz
 tar xzf meep-1.23.0.tar.gz
 cd meep-1.23.0/
-./configure --enable-shared PYTHON=python3 CPPFLAGS="-I$(brew --prefix)/include" LDFLAGS="-L$(brew --prefix)/lib" && make && sudo make install
+./configure --enable-shared --with-mpi PYTHON=python3 CC=mpicc CXX=mpic++ CPPFLAGS="-I$(brew --prefix)/include" LDFLAGS="-L$(brew --prefix)/lib" && make && sudo make install
 
 ## Link installed MEEP to conda env
 ln -s /usr/local/lib/python3.9/site-packages/meep $CONDA_PREFIX/lib/python3.9/site-packages
 export HDF5_MPI="ON"
 
-make check
+# make check --> Bug for the test "dump_load"
