@@ -1,0 +1,5 @@
+# Specific
+.DS_Store
+.dev/
+dev/
+.vscode/
